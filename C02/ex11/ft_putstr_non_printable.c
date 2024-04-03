@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcapitalize.c                                 :+:      :+:    :+:   */
+/*   ft_putstr_non_printable.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 02:08:40 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/01 16:06:15 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/01 12:39:37 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/01 16:00:58 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	delimiter(char c)
-{
-	if (c == ' ' || c == '-' || c == '+' || c == '.' || c == '\0')
-		return (0);
-	return (1);
-}
+#include <unistd.h>
 
-char	*ft_strcapitalize(char *str)
+void	ft_putstr_non_printable(char *str)
 {
-	int	i;
-	int	j;
+	int		i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		j = i;
-		while (delimiter(str[j]) && str[j] != '\0')
+		if (!(str[i] >= 32 && str[i] <= 126))
 		{
-			if ((str[j] >= 'A' && str[j] <= 'Z'))
-				str[j] += 32;
-			j++;
-			if (!delimiter(str[j]) && (str[i] >= 'a' && str[i] <= 'z'))
-				str[i] -= 32;
+			write(1, "\\", 1);
+			write(1, &"0123456789abcdef"[((unsigned char)str[i]) / 16], 1);
+			write(1, &"0123456789abcdef"[((unsigned char)str[i]) % 16], 1);
 		}
-		i = j + 1;
+		else
+			write(1, &str[i], 1);
+		i++;
 	}
-	return (str);
 }
