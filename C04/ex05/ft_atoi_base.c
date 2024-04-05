@@ -6,35 +6,11 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 07:15:03 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/05 07:43:39 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:26:31 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-
-int	ft_atoi(char *str)
-{
-	int	x;
-	int	state;
-	int	result;
-
-	x = 0;
-	while ((str[x] >= 9 && str[x] <= 13) || str[x] == ' ' || str[x] == '\n')
-		x++;
-	state = 0;
-	while (str[x] == '-' || str[x] == '+')
-	{
-		if (str[x] == '-')
-			state++;
-		x++;
-	}
-	result = 0;
-	while (str[x] >= '0' && str[x] <= '9')
-		result = result * 10 + (str[x++] - '0');
-	if (state % 2)
-		result *= -1;
-	return (result);
-}
 
 int	ft_strlen(char *str)
 {
@@ -71,21 +47,37 @@ int	checker(char *str)
 	return (0);
 }
 
-int	convert(int nbr, char *base, int state)
+int	index_finder(char *base, char c)
+{
+	int	i;
+
+	i = 0;
+	while (base[i] != '\0')
+	{
+		if (base[i] == c)
+			return (i);
+		i++;
+	}
+	if (base[i] == '\0')
+		return (-1);
+	return (0);
+}
+
+int	convert(char *str, char *base, int x, int state)
 {
 	int	result;
-	int	len;
+	int	len_base;
 
 	result = 0;
-	if (nbr == 0)
-		return (result);
-	len = ft_strlen(base);
-	while (nbr)
+	len_base = ft_strlen(base);
+	while (str[x] != '\0')
 	{
-		result = result * 10 + (base[(nbr % len)] - '0');
-		nbr /= len;
+		if (index_finder(base, str[x]) == -1)
+			return (0);
+		result = result * len_base + index_finder(base, str[x]);
+		x++;
 	}
-	if (state == -1)
+	if (state % 2)
 		result *= -1;
 	return (result);
 }
@@ -93,18 +85,21 @@ int	convert(int nbr, char *base, int state)
 int	ft_atoi_base(char *str, char *base)
 {
 	int		state;
-	int		nbr;
+	int		x;
 
 	if (!(checker(base)))
 	{
-		nbr = ft_atoi(str);
-		state = 1;
-		if (nbr < 0)
+		x = 0;
+		while ((str[x] >= 9 && str[x] <= 13) || str[x] == ' ' || str[x] == '\n')
+			x++;
+		state = 0;
+		while (str[x] == '-' || str[x] == '+')
 		{
-			state = -1;
-			nbr *= -1;
+			if (str[x] == '-')
+				state++;
+			x++;
 		}
-		return (convert(nbr, base, state));
+		return (convert(str, base, x, state));
 	}
 	return (0);
 }
