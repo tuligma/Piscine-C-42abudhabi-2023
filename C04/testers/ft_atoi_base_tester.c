@@ -2,8 +2,6 @@
 #include <limits.h>
 #include "../includes/tuligma_C04.h"
 
-int	ft_atoi_base(char *str, char *base);
-
 int		main(void)
 {
 	int res;

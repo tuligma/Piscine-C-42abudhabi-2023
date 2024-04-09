@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
+/*   ft_convert_base2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 07:15:03 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/09 13:31:40 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/09 08:28:17 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/10 01:11:24 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	checker(char *str)
 	x = 0;
 	while (str[x] != '\0')
 	{
-		if ((str[x] >= 9 && str[x] <= 13))
+		if ((str[x] >= 9 && str[x] <= 13) || (str[x] == ' '
+				|| str[x] == '\n'))
 			return (1);
 		j = 0;
 		while (str[j] != '\0')
@@ -63,23 +64,28 @@ int	index_finder(char *base, char c)
 
 int	convert(char *str, char *base, int x, int state)
 {
-	int	result;
-	int	len_base;
+	long long int	result;
+	int				len_base;
 
 	result = 0;
 	len_base = ft_strlen(base);
 	while (str[x] != '\0')
 	{
-		if ((str[x] >= 9 && str[x] <= 13) || str[x] == ' ' || str[x] == '\n')
+		if ((str[x] >= 9 && str[x] <= 13)
+			|| (str[x] == ' ' || str[x] == '\n' || str[x] == '.'))
 			break ;
 		if (index_finder(base, str[x]) == -1)
-			return (0);
+			return (-1);
 		result = result * len_base + index_finder(base, str[x]);
 		x++;
 	}
+	if (result == 2147483648 && state % 2)
+		return ((int)-result);
+	if (result > 2147483647 || result < -2147483648)
+		return (-1);
 	if (state % 2)
 		result *= -1;
-	return (result);
+	return ((int)result);
 }
 
 int	ft_atoi_base(char *str, char *base)
@@ -101,5 +107,5 @@ int	ft_atoi_base(char *str, char *base)
 		}
 		return (convert(str, base, x, state));
 	}
-	return (0);
+	return (-1);
 }
