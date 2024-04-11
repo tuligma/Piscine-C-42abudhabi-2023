@@ -6,58 +6,55 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 01:14:44 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/10 02:57:20 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/12 00:28:56 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
+
+int	ft_strchr(char *charset, char c)
+{
+	int	i;
+
+	i = -1;
+	while (charset[++i] != '\0')
+	{
+		if (charset[i] == c)
+			return (1);
+	}
+	return (0);
+}
 
 int	array_size(char *str, char *charset)
 {
 	int	i;
-	int	j;
 	int	size;
 
+	if (charset[0] == '\0')
+		return (2);
 	i = 0;
 	size = 0;
 	while (str[i] != '\0')
 	{
-		j = 0;
-		while (str[i++] == charset[j] && charset[j] != '\0')
-			j++;
-		if (charset[j] == '\0')
-				size++;
+		if (str[i] != '\0' && !ft_strchr(charset, str[i]))
+		{
+			size++;
+			while (str[i] != '\0' && !ft_strchr(charset, str[i]))
+				i++;
+		}
+		else
+			i++;
 	}
 	return (++size);
 }
 
-int	charset_skipper(char *charset, int x)
-{
-	while (charset[x] != '\0')
-		x++;
-	return (x);
-}
-
-int	ft_strlen(char *str, char *charset, int min)
-{
-	int	i;
-	int	j;
-
-	i = min;
-	j = 0;
-	while (str[i] != charset[j] && str[i] != '\0')
-		i++;
-	return (i - min);
-}
-
-char	*ft_strdup(char *str, char *charset, int min)
+char	*ft_range(char *str, int min, int max)
 {
 	char	*dest;
 	int		size;
 	int		i;
 
-	size = ft_strlen(str, charset, min);
+	size = max - min;
 	dest = (char *)malloc(sizeof(char) * (size + 1));
 	if (dest == NULL)
 		return (NULL);
@@ -68,36 +65,47 @@ char	*ft_strdup(char *str, char *charset, int min)
 	return (dest);
 }
 
+char	**free_me(char **array, int x)
+{
+	if (array[x] == NULL)
+	{
+		while (x >= 0)
+		{
+			free(array[x--]);
+			array[x] = NULL;
+		}
+		free(array);
+		array = NULL;
+		return (array);
+	}
+	return (NULL);
+}
+
 char	**ft_split(char *str, char *charset)
 {
 	char	**array;
-	int		size;
 	int		x;
 	int		min;
+	int		max;
 
-	size = array_size(str, charset);
-	array = (char **)malloc(sizeof(char *) * (size + 1));
+	if (str == NULL || charset == NULL)
+		return (NULL);
+	array = (char **)malloc(sizeof(char *) * (array_size(str, charset) + 1));
 	if (array == NULL)
 		return (NULL);
-	min = 0;
 	x = 0;
-	while (x < size)
+	max = 0;
+	while (str[max] != '\0')
 	{
-		array[x] = ft_strdup(str, charset, min);
-		if (array[x] == NULL)
-		{
-			while (x != 0)
-			{
-				free(array[x--]);
-				array[x] = NULL;
-			}
-			free(array);
-			array = NULL;
-			return (array);
-		}
-		min += ft_strlen(str, charset, min) + charset_skipper(charset, 0);
-		x++;
+		while (ft_strchr(charset, str[max]) && str[max] != '\0')
+			max++;
+		min = max;
+		while (!ft_strchr(charset, str[max]) && str[max] != '\0')
+			max++;
+		array[x] = ft_range(str, min, max);
+		if (array[x++] == NULL)
+			return (free_me(array, x));
 	}
-	array[x] = 0;
+	array[x] = (void *)0;
 	return (array);
 }

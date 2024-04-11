@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 22:28:28 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/09 01:35:15 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/12 00:31:32 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	ft_strlcat(char *dest, char *src)
 		dest[dest_len + x] = src[x];
 }
 
-void 	ft_memset(char *dest, int c, int size)
+void	ft_memset(char *dest, int c, int size)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
-	while(++i < size)
+	while (++i < size)
 		dest[i] = c;
 }
 
