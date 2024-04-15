@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 15:31:51 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/15 12:25:31 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:49:15 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[])
 {
-	char	buff[2999];
+	char	buff[29999];
 	int		buff_size;
 	int		s_op;
 	int		d_op;
