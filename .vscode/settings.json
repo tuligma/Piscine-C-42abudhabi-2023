@@ -1,0 +1,9 @@
+{
+    "42header.username": "npentini",
+    "42header.email": "npentini@student.42abudhabi.ae",
+    "files.associations": {
+        "fcntl.h": "c",
+        "ft_display_file.h": "c",
+        "ft_cat.h": "c"
+    }
+}
