@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:52:37 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/15 11:39:27 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:28:24 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	ft_putstr_out(char *str)
 		write(STDOUT_FILENO, &str[i], 1);
 }
 
-void    std_in(char *buff, int buff_size)
+void	std_in(char *buff, int buff_size)
 {
-    int buffer_size;
-    
-    while (1)
-    {
-        buffer_size = read(STDIN_FILENO, buff, buff_size);
-        buff[buffer_size] = '\0';
-        ft_putstr_out(buff);
-    }
+	int	buffer_size;
+
+	while (1)
+	{
+		buffer_size = read(STDIN_FILENO, buff, buff_size);
+		buff[buffer_size] = '\0';
+		ft_putstr_out(buff);
+	}
 }
 
 int	print_error(char *arg, int error_code)
@@ -52,14 +52,14 @@ int	print_error(char *arg, int error_code)
 	return (1);
 }
 
-int print_out(int argc, char *argv[], char *buff, int buff_size)
+int	print_out(int argc, char *argv[], char *buff, int buff_size)
 {
-    int		fd;
+	int		fd;
 	int		buffer_read;
 	int		i;
 
-    i = 0;
-    while (++i < argc)
+	i = 0;
+	while (++i < argc)
 	{
 		if (argv[i][0] == '-')
 			std_in(buff, buff_size);
@@ -71,7 +71,7 @@ int print_out(int argc, char *argv[], char *buff, int buff_size)
 		if (buffer_read == -1)
 			return (print_error(argv[i], errno));
 		ft_putstr_out(buff);
-        close(fd);
+		close(fd);
 	}
-    return (0);
+	return (0);
 }
