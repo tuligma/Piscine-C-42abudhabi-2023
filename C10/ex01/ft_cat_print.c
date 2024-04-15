@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_cat_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:52:37 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/15 05:07:46 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:39:27 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	ft_putstr_out(char *str)
 		write(STDOUT_FILENO, &str[i], 1);
 }
 
-void    std_in(char *buff)
+void    std_in(char *buff, int buff_size)
 {
     int buffer_size;
     
     while (1)
     {
-        buffer_size = read(STDIN_FILENO, buff, sizeof(buff));
+        buffer_size = read(STDIN_FILENO, buff, buff_size);
         buff[buffer_size] = '\0';
         ft_putstr_out(buff);
     }
@@ -48,7 +48,7 @@ int	print_error(char *arg, int error_code)
 	ft_putstr_err(basename(arg));
 	ft_putstr_err(": ");
 	ft_putstr_err(strerror(error_code));
-	write(1, "\n", 1);
+	ft_putstr_err("\n");
 	return (1);
 }
 
@@ -61,12 +61,13 @@ int print_out(int argc, char *argv[], char *buff, int buff_size)
     i = 0;
     while (++i < argc)
 	{
-		if (i > 1 && argv[i][0] == '-')
-			std_in(buff);
+		if (argv[i][0] == '-')
+			std_in(buff, buff_size);
 		fd = open(argv[i], O_RDONLY);
 		if (fd == -1)
 			return (print_error(argv[i], errno));
 		buffer_read = read(fd, buff, buff_size);
+		buff[buffer_read] = '\0';
 		if (buffer_read == -1)
 			return (print_error(argv[i], errno));
 		ft_putstr_out(buff);

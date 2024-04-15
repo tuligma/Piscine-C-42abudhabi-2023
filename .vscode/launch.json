@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/C10/ex01/ft_cat",
-            "args": ["new_ft"],
+            "args": ["a", "b", ">>", "c"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:53:24 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/15 04:38:28 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:05:39 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 
 void	ft_putstr_err(char *str);
 void	ft_putstr_out(char *str);
-void    std_in(char *buff);
+void    std_in(char *buff, int buff_size);
 char    **ft_basename(int argc, char *argv[]);
 int	print_error(char *arg, int error_code);
-void    create_write(char *buff, char *arg);
-void    append_write(char *buff, char *arg);
+void    create_write(char *buff, char *arg, int buff_size);
+void    append_write(char *buff, char *arg, int buff_size);
 int print_out(int argc, char *argv[], char *buff, int buff_size);
+int ft_strlen(char *str);
 
 #endif
