@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/C10/ex02/ft_tail",
-            "args": ["-c", "10", "${workspaceFolder}/C10/ex02/x"],
+            "args": ["-c", "10", "${workspaceFolder}/C10/ex02/x", "${workspaceFolder}/C10/ex02/y", "${workspaceFolder}/C10/ex02/y", "${workspaceFolder}/C10/ex02/b"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

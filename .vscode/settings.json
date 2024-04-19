@@ -6,7 +6,8 @@
         "ft_display_file.h": "c",
         "ft_cat.h": "c",
         "ft_tail.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "functional": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
