@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:45:13 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/21 01:48:21 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/21 01:52:30 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ int	ft_hexdump(int argc, char *argv[], int total_size)
 		return (print_error(argv[i], 12));
 	buffer[0] = '\0';
 	result = buffer_extraction(argc, argv, &buffer, total_size);
-	if (result == -1 || result == 12)
+	if (result == -1)
 		status = print_error(argv[1], errno);
+	else if (result == 12)
+		status = print_error(argv[1], 12);
 	result = string_process(argv, &buffer, total_size);
 	free(buffer);
 	return (status);

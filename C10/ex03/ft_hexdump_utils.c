@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:25:22 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/21 00:30:18 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/21 02:01:25 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ int	total_buffer_size(char *argv, int buffer_size)
 
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
-		return (fd);
+		return (-1);
 	count = 0;
 	while (buffer_size > 0)
 	{
 		count += buffer_size;
 		buff = (char *)malloc(sizeof(char) * 16);
 		if (buff == NULL)
-			return (12);
+			return (-1);
 		buffer_size = read(fd, buff, 16);
 		if (buffer_size == -1)
-			return (buffer_size);
+			return (-1);
 		free(buff);
 	}
 	return (count - 1);
