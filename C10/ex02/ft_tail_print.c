@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 03:27:37 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/20 03:27:40 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/20 04:20:52 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_head(char *arg)
 
 int	print_error(char *arg, int error_code)
 {
-	ft_putstr_err("tail: cannot open \'");
+	ft_putstr_err("ft_tail: cannot open \'");
 	ft_putstr_err(basename(arg));
 	ft_putstr_err("\' for reading: ");
 	ft_putstr_err(strerror(error_code));
@@ -33,17 +33,23 @@ int	print_error_byte(char *arg)
 {
 	if (arg[0] == '-' && arg[1] != 'c')
 	{
-		ft_putstr_err("tail: invalid option -- \'");
+		ft_putstr_err("ft_tail: invalid option -- \'");
 		ft_putstr_err(arg + 1);
-		ft_putstr_err("’");
-		ft_putstr_err("\n");
+		ft_putstr_err("’\n");
+		ft_putstr_err("Try './ft_tail --help' for more information.\n");
+	}
+	else if (arg[0] == '-' && arg[1] == 'c')
+	{
+		ft_putstr_err("ft_tail: option requires an argument -- \'");
+		ft_putstr_err(arg + 1);
+		ft_putstr_err("’\n");
+		ft_putstr_err("Try './ft_tail --help' for more information.\n");
 	}
 	else
 	{
-		ft_putstr_err("tail: invalid number of bytes: ‘");
+		ft_putstr_err("ft_tail: invalid number of bytes: ‘");
 		ft_putstr_err(basename(arg));
-		ft_putstr_err("’");
-		ft_putstr_err("\n");
+		ft_putstr_err("’\n");
 	}
 	return (1);
 }

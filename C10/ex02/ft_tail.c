@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:42:40 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/20 03:24:26 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/20 04:12:11 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int	main(int argc, char *argv[])
 			byte_size *= -1;
 		return (ft_tail(argc, argv, byte_size, 0));
 	}
-	return (1);
+	else
+		return (error_handler(argc, argv));
 }
