@@ -7,7 +7,14 @@
         "ft_cat.h": "c",
         "ft_tail.h": "c",
         "stdio.h": "c",
-        "functional": "c"
+        "functional": "c",
+        "ft_hexdump.h": "c",
+        "random": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "*.tcc": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
