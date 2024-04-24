@@ -6,52 +6,51 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:06:04 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/24 01:15:12 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/24 23:58:38 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_hexdump.h"
 
-int	buff_extraction(int argc, char *argv[], int x, int *offset_ptr, int *i)
+int	read_arg(int fd, char **buff)
+{
+	int	buff_size;
+
+	*buff = (char *)malloc(sizeof(char) * 16);
+	if (buff == NULL)
+		return (12);
+	buff_size = read(fd, *buff, 16);
+	return (buff_size);
+}
+
+int	buff_extraction(int argc, char *argv[], int x, int *offset_ptr)
 {
 	char	*buff;
 	int		fd;
 	int		buff_size;
-	int		result;
+	int		i;
 
 	fd = open_arg(argv[x], offset_ptr);
 	if (fd == -1)
 		return (fd);
 	buff_size = 1;
+	i = 0;
 	while (buff_size > 0)
 	{
-		buff = (char *)malloc(sizeof(char) * 16);
-		if (buff == NULL)
-			return (12);
-		buff_size = read(fd, buff, 16);
+		buff_size = read_arg(fd, &buff);
 		if (buff_size == -1)
 			return (buff_size);
-		if (buff_size == 0)
-			break ;
 		if ((argc > 3 && x + 1 <= argc - 1)
 			&& (buff_size > 0 && buff_size < 16))
-		{
 			*offset_ptr = buff_offset(argv[x + 1], &buff, buff_size);
-			if (*offset_ptr == -1)
-				*offset_ptr = 0;
-		}
-		result = off_set_byte(*i);
-		if (result == 12)
-			return (result);
-		string_hex_print(buff, buff_size + (*offset_ptr));
-		string_print(buff, buff_size + (*offset_ptr));
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		free(buff);
-		*i += buff_size + (*offset_ptr);
+		buff_size = print_all(buff, buff_size, *offset_ptr, i);
+		if (buff_size == -1)
+			return (12);
+		i += buff_size;
 	}
 	free(buff);
 	close(fd);
-	return (0);
+	return (i);
 }
 
 int	ft_hexdump(int argc, char *argv[], int status)
@@ -70,9 +69,10 @@ int	ft_hexdump(int argc, char *argv[], int status)
 	offset_ptr = 0;
 	while (i < size)
 	{
-		result = buff_extraction(argc, argv, ++x, &offset_ptr, &i);
+		result = buff_extraction(argc, argv, ++x, &offset_ptr);
 		if (result == -1 || result == 12)
 			status = print_error(argv[x], errno);
+		i += result;
 	}
 	if (i == size)
 	{

@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:23:23 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/24 01:06:08 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/24 02:57:06 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,22 @@ void	string_print(char *str, int size)
 		i++;
 	}
 	ft_putstr_fd("|", STDERR_FILENO);
+}
+
+int	print_all(char *buff, int buff_size, int offset_ptr, int i)
+{
+	int result;
+
+	if (buff_size != 0)
+	{
+		result = off_set_byte(i);
+		if (result == 12)
+			return (-1);
+		string_hex_print(buff, buff_size + offset_ptr);
+		string_print(buff, buff_size + offset_ptr);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		free(buff);
+		return (buff_size + offset_ptr);
+	}
+	return (0);
 }

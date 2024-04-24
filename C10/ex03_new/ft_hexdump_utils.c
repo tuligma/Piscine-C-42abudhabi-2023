@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:22:41 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/24 00:52:26 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/24 03:00:13 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	buff_offset(char *arg, char **buff, int buff_size)
 	offset_buff_size = 16 - buff_size;
 	buff_size = read(fd, *buff + buff_size, offset_buff_size);
 	if (buff_size == -1)
-		return (-1);
+		return (buff_size + print_error(arg, errno));
 	close(fd);
 	return (offset_buff_size);
 }
