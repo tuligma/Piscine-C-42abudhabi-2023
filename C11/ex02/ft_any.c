@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuligma_C11.h                                      :+:      :+:    :+:   */
+/*   ft_any.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 23:22:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/26 02:40:52 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/26 01:12:04 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/26 02:14:43 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TULIGMA_C11_H
-# define TULIGMA_C11_H
+#include <stddef.h>
 
-#include <stdio.h>
-#include <unistd.h>
+int	ft_any(char **tab, int (*f)(char*))
+{
+	int	x;
+	int	result;
 
-void	ft_foreach(int *tab, int length, void (*f)(int));
-int		*ft_map(int *tab, int length, int (*f)(int));
-int		ft_any(char **tab, int (*f)(char*));
-int		ft_count_if(char **tab, int length, int (*f)(char*));
-int		ft_is_sort(int *tab, int length, int (*f)(int, int));
-
-
-
-#endif
+	if (tab == NULL || f == NULL)
+		return (0);
+	x = -1;
+	while (tab[++x] != NULL)
+	{
+		if (f(tab[x]) != 0)
+			return (1);
+	}
+	return (0);
+}

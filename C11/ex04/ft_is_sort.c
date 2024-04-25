@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_is_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 01:54:30 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/25 23:31:55 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/26 02:15:59 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/26 02:37:36 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stddef.h>
 
-void	ft_putchar(char c)
+int	ft_is_sort(int *tab, int length, int (*f)(int, int))
 {
-	write(1, &c, 1);
-}
+	int	x;
 
-void	ft_putstr(char *str)
-{
-	while (*str != '\0')
-		ft_putchar(*str++);
-}
-
-void	ft_putnbr(int nb)
-{
-	if (nb == -2147483648)
+	if (tab == NULL || length == 0 || f == NULL)
+		return (0);
+	x = -1;
+	while (++x < length && x + 1 < length)
 	{
-		ft_putstr("-2147483648");
-		return ;
+		if (f(tab[x], tab[x + 1]) > 0)
+			return (0);
 	}
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		nb *= -1;
-	}
-	if (nb >= 10)
-		ft_putnbr(nb / 10);
-	ft_putchar(nb % 10 + '0');
+	return (1);
 }
