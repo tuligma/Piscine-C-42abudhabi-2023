@@ -14,7 +14,10 @@
         "string_view": "c",
         "initializer_list": "c",
         "utility": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "libgen.h": "c",
+        "tuligma_c11.h": "c",
+        "do_op.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

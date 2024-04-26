@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuligma_C11.h                                      :+:      :+:    :+:   */
+/*   do-op_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 23:22:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/27 03:41:29 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/27 02:14:35 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/27 02:52:01 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TULIGMA_C11_H
-# define TULIGMA_C11_H
+#include "do_op.h"
 
-#include <stdio.h>
-#include <unistd.h>
+int	main(int argc, char *argv[])
+{
+	char	op;
+	int		value1;
+	int		value2;
+	int		result;
 
-void	ft_foreach(int *tab, int length, void (*f)(int));
-int		*ft_map(int *tab, int length, int (*f)(int));
-int		ft_any(char **tab, int (*f)(char*));
-int		ft_count_if(char **tab, int length, int (*f)(char*));
-int		ft_is_sort(int *tab, int length, int (*f)(int, int));
-
-#endif
+	result = error_handler(argc, argv);
+	if (result == 1)
+		return (1);
+	op = argv[2][0];
+	value1 = ft_atoi(argv[1]);
+	value2 = ft_atoi(argv[3]);
+	result = do_op(op, value1, value2);
+	ft_putnbr(result);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
+}

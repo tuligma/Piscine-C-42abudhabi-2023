@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuligma_C11.h                                      :+:      :+:    :+:   */
+/*   do-op_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 23:22:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/27 03:41:29 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/27 01:03:27 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/27 02:32:30 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TULIGMA_C11_H
-# define TULIGMA_C11_H
+#include "do_op.h"
 
-#include <stdio.h>
-#include <unistd.h>
+int	addition(int a, int b)
+{
+	return (a + b);
+}
 
-void	ft_foreach(int *tab, int length, void (*f)(int));
-int		*ft_map(int *tab, int length, int (*f)(int));
-int		ft_any(char **tab, int (*f)(char*));
-int		ft_count_if(char **tab, int length, int (*f)(char*));
-int		ft_is_sort(int *tab, int length, int (*f)(int, int));
+int	subtraction(int a, int b)
+{
+	return (a - b);
+}
 
-#endif
+int	division(int a, int b)
+{
+	return (a / b);
+}
+
+int	multiplication(int a, int b)
+{
+	return (a * b);
+}
+
+int	modulo(int a, int b)
+{
+	return (a % b);
+}

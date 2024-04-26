@@ -1,16 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_op.c                                            :+:      :+:    :+:   */
+/*   do-op_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 02:44:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/26 03:03:04 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/27 01:05:57 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/27 03:36:24 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "do_op.h"
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	int	x;
+
+	x = -1;
+	while (str[++x] != '\0')
+		ft_putchar_fd(str[x], fd);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb == -2147483648)
+	{
+		ft_putstr_fd("-2147483648", STDOUT_FILENO);
+		return ;
+	}
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', STDOUT_FILENO);
+		nb *= -1;
+	}
+	if (nb >= 10)
+		ft_putnbr(nb / 10);
+	ft_putchar_fd(nb % 10 + '0', STDOUT_FILENO);
+}
 
 int	ft_atoi(char *str)
 {
@@ -36,39 +67,12 @@ int	ft_atoi(char *str)
 	return (result);
 }
 
-char	op(char *str)
+int	ft_strlen(char *str)
 {
-	char *operator[5];
 	int	x;
-	int	len;
 
-	operator[0][0] = '+';
-	operator[1][0] = '-';
-	operator[2][0] = '/';
-	operator[3][0] = '*';
-	operator[4][0] = '%';
-	len = 5;
-	x = -1;
-	
-}
-
-void	do_op(int argc, char *argv[], char (*f)(char*))
-{
-	char	op;
-	int	value1;
-	int	value2;
-
-	value1 = ft_atoi(argv[1]);
-	value2 = ft_atoi(argv[3]);
-}
-
-int	main(int argc, char *argv[])
-{
-
-	if (argc == 4)
-	{
-
-		return (0);
-	}
-	return (1);
+	x = 0;
+	while (str[x] != '\0')
+		x++;
+	return (x);
 }
