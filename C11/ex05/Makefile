@@ -6,7 +6,7 @@
 #    By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 02:27:15 by npentini          #+#    #+#              #
-#    Updated: 2024/04/27 02:31:07 by npentini         ###   ########.fr        #
+#    Updated: 2024/04/27 04:36:16 by npentini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ DELETE = rm -f
 all: $(NAME)
 
 %.o : %.c
-	$(COMP) $(CFLAGS) -I $(INCS) -c $< -o $@ -g
+	$(COMP) $(CFLAGS) -I $(INCS) -c $< -o $@
 
 $(NAME) : $(OBJS)
 	$(COMP) $(CFLAGS) $(OBJS) -o $(NAME)
