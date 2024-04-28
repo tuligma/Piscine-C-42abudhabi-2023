@@ -17,7 +17,11 @@
         "*.tcc": "c",
         "libgen.h": "c",
         "tuligma_c11.h": "c",
-        "do_op.h": "c"
+        "do_op.h": "c",
+        "ft_list.h": "c",
+        "tuligma_c12.h": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
