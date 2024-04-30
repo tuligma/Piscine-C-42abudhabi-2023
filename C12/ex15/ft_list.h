@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 04:41:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/30 02:40:33 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/01 00:45:34 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_list
 	void			*data;
 }					t_list;
 
+t_list	*ft_create_elem(void *data);
 int		ft_list_size(t_list *begin_list);
 void	ft_list_reverse_fun(t_list *begin_list);
 

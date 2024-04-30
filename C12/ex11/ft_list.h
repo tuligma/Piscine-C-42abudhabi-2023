@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 04:41:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/29 00:49:23 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/01 00:45:05 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_list
 	void			*data;
 }					t_list;
 
+t_list	*ft_create_elem(void *data);
 t_list	*ft_list_find(t_list *begin_list, void *data_ref, int (*cmp)());
 
 #endif
