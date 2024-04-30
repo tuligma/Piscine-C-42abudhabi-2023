@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 04:41:19 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/30 03:46:45 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/01 00:33:58 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ typedef struct s_list
 	void			*data;
 }					t_list;
 
-void	ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)());
+t_list	*ft_list_last(t_list *begin_list);
 void	ft_sorted_list_merge(t_list **begin_list1, t_list *begin_list2,
 			int (*cmp)());
+int		error_handler(t_list **begin_list1, t_list *begin_list2,
+			int (*cmp)());
+void	sorted_list_insert(t_list **begin_list1,
+			t_list *current1, int (*cmp)());
 
 #endif
