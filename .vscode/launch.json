@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/C12/output/ft_list_clear",
+            "program": "${workspaceFolder}/C12/output/ft_list_reverse_fun",
             "args": ["Hello", "this", "is", "banjo!"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

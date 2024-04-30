@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_push_strs.c                                :+:      :+:    :+:   */
+/*   ft_list.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 00:21:57 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/30 03:41:16 by npentini         ###   ########.fr       */
+/*   Created: 2024/04/27 04:41:19 by npentini          #+#    #+#             */
+/*   Updated: 2024/04/30 03:46:45 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_list.h"
+#ifndef FT_LIST_H
+# define FT_LIST_H
 
-t_list	*ft_list_push_strs(int size, char **strs)
+# include <stdlib.h>
+
+typedef struct s_list
 {
-	t_list	*node;
-	t_list	*current;
-	int		x;
+	struct s_list	*next;
+	void			*data;
+}					t_list;
 
-	current = NULL;
-	x = -1;
-	while (++x < size)
-	{
-		node = ft_create_elem(strs[x]);
-		if (node == NULL)
-			return (NULL);
-		if (current == NULL)
-			current = node;
-		else
-		{
-			node->next = current;
-			current = node;
-		}
-	}
-	return (current);
-}
+void	ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)());
+void	ft_sorted_list_merge(t_list **begin_list1, t_list *begin_list2,
+			int (*cmp)());
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:03:20 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/29 01:38:57 by npentini         ###   ########.fr       */
+/*   Updated: 2024/04/30 03:48:35 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	ft_list_foreach_if(t_list *begin_list, void (*f)(void *), void *data_ref, i
 t_list	*ft_list_find(t_list *begin_list, void *data_ref, int (*cmp)());
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 void	ft_list_merge(t_list **begin_list1, t_list *begin_list2);
+void	ft_list_sort(t_list **begin_list, int (*cmp)());
+void	ft_list_reverse_fun(t_list *begin_list);
+void	ft_sorted_list_insert(t_list **begin_list, void *data, int (*cmp)());
+void	ft_sorted_list_merge(t_list **begin_list1, t_list *begin_list2, int (*cmp)());
 
 
 #endif
