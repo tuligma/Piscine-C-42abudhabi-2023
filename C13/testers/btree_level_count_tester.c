@@ -82,29 +82,6 @@ void	print_btree(t_btree *root, int level, int *height)
 		*height = level;
 }
 
-// void	insert_node(t_btree *root, t_btree *node)
-// {
-// 	char	*node_item;
-// 	char	*root_item;
-
-// 	node_item = (char*)node->item;
-// 	root_item = (char *)root->item);
-// 	if (node_item < root_item)
-// 	{
-// 		if (root->left == NULL)
-// 			root->left = node;
-// 		else
-// 			insert_node(root->left, node);
-// 	}
-// 	else
-// 	{
-// 		if (root->right == NULL)
-// 			root->right = node;
-// 		else
-// 			insert_node(root->right, node);
-// 	}
-// }
-
 char	**arg_to_malloc(int argc, char *argv[])
 {
 	char	**arr;
@@ -153,9 +130,11 @@ void 	free_btree(t_btree *parent)
 int	main(int argc, char *argv[])
 {
 	t_btree	*root;
+	void	*search;
 	char	**list;
 	int		x;
 	int		btree_height;
+	int		level;
 	
 	if (argc < 2)
 		return (print_error_argument());
@@ -164,10 +143,10 @@ int	main(int argc, char *argv[])
 		return (print_error_malloc());
 	x = -1;
 	printf ("\nList: {");
-	while (++x < argc - 1)
+	while (list[++x] != NULL)
 	{
 		printf("\"%s\"", list[x]);
-		if (x < argc - 2)
+		if (list[x] != NULL)
 			printf(", ");
 		else
 			printf("}");
@@ -193,7 +172,15 @@ int	main(int argc, char *argv[])
 	btree_apply_infix(root, &print_traversal);
 	printf("\nSuffix Traversal: ");
 	btree_apply_suffix(root, &print_traversal);
-	printf("\n\n");
+	printf("\n\nSearching for item \"%s\"\n", "log");
+	search = NULL;
+	search = btree_search_item(root, (void *)"log", ft_strcmp);
+	if (search == NULL)
+		printf("\nNot found! %s\n\n", (char *)search);
+	else
+		printf("\nFound! %s\n\n", (char *)search);
+	level = btree_level_count(root);
+	printf("This binary tree has %i level/s\n\n", level);
 	free_btree(root);
 	free_list(list, argc - 1);
 	return (0);
