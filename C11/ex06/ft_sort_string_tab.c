@@ -6,11 +6,21 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 03:47:48 by npentini          #+#    #+#             */
-/*   Updated: 2024/04/27 04:31:21 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:42:43 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s1 == *s2)
+	{
+		++s1;
+		++s2;
+	}
+	return (*s1 - *s2);
+}
 
 int	ft_arrlen(char **tab)
 {
@@ -38,7 +48,7 @@ void	ft_sort_string_tab(char **tab)
 		j = -1;
 		while (++j < len - 1)
 		{
-			if (tab[j][0] > tab[j + 1][0])
+			if (ft_strcmp(tab[j], tab[j + 1]) > 0)
 			{
 				temp = tab[j];
 				tab[j] = tab[j + 1];
