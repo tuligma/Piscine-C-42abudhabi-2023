@@ -6,44 +6,125 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:25:21 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/05 05:53:57 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/06 00:10:43 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
 #include <stdio.h>
 
-void initial_mapping(int **arg, int **table)
+void	verifier_cols(int **table, int rows, int cols)
 {
 	int	x;
 	int	j;
+	int	box;
 
-	x = 0;
-	while (arg[x] != NULL)
+	x = -1;
+	while (++x < cols)
 	{
-		if (x < 4)
+		box = 0;
+		j = -1;
+		while (++j < rows)
+		{
+			if (j == rows - 1 && table[j - 1][x] != 0)
+				table[j][x] = 10 - box;
+			box += table[j][x];	
+		}
+	}
+}
+
+
+void	verifier_rows(int **table, int rows, int cols)
+{
+	int	x;
+	int	j;
+	int	box;
+
+	j = -1;
+	while (++j < rows)
+	{
+		box = 0;
+		x = -1;
+		while (++x < cols)
+		{
+			if (x == cols - 1 && table[j][x - 1] != 0)
+				table[j][x] = 10 - box;
+			box += table[j][x];	
+		}
+	}
+}
+
+void	rowlf_map(int **arg, int **table, int rows)
+{
+	int	x;
+	int	j;
+	int	i;
+
+	i = -1;
+	j = 0;
+	while (arg[++i] != NULL && i < rows)
+	{
+		j = i;
+		if (*arg[i] == 1)
+			table[j][x] = 4;
+		if (*arg[i] == 4)
+		{
+			x = 0;
+			while (x < 4)
+			{
+				table[j][x] = x + 1;
+				x++;
+			}
+			x = 0;
+		}
+		if (*arg[i] == 2)
+			table[j][x + 1] = 4;
+	}
+}
+
+void	colup_map(int **arg, int **table, int cols)
+{
+	int	x;
+	int	j;
+	int	i;
+
+	i = -1;
+	j = 0;
+	while (arg[++i] != NULL && i < cols)
+	{
+		x = i;
+		if (*arg[i] == 1)
+			table[j][x] = 4;
+		if (*arg[i] == 4)
 		{
 			j = 0;
-			if (*arg[x] == 1)
-				table[j][x] = 4;
-			if (*arg[x] == 4)
+			while (j < 4)
 			{
-				while (j < 4)
-				{
-					table[j][x] = j + 1;
-					j++;
-				}
+				table[j][x] = j + 1;
+				j++;
 			}
+			j = 0;
 		}
-		x++;
+		if (*arg[i] == 2)
+			table[j + 1][x] = 4;
+		if (*arg[i] == 3 && table[j][x] == 2)
+			table[j + 1][x] = 3;
 	}
+}
+
+void	initial_mapping(int **arg, int **table, int rows, int cols)
+{
+	rowlf_map(arg + 8, table, rows);
+	colup_map(arg, table, cols);
+	verifier_rows(table, rows, cols);
+	verifier_cols(table, rows, cols);
 }
 
 int	**rush01(int **arg)
 {
 	int	**table;
-	int rows;
-	int cols;
+	int	rows;
+	int	cols;
 
 	(void)arg;
 	rows = 4;
@@ -51,7 +132,7 @@ int	**rush01(int **arg)
 	table = table_creation(cols, rows);
 	if (table == NULL)
 		return (NULL);
-	initial_mapping(arg, table);
+	initial_mapping(arg, table, rows, cols);
 	print_table(table, rows, cols);
 	return (table);
 }
