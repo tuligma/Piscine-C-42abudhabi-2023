@@ -1,123 +1,107 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush01.c                                           :+:      :+:    :+:   */
+/*   rush01_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 16:25:21 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/06 00:10:43 by npentini         ###   ########.fr       */
+/*   Created: 2024/05/04 17:58:20 by npentini          #+#    #+#             */
+/*   Updated: 2024/05/06 05:31:17 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
-#include <stdio.h>
 
-void	verifier_cols(int **table, int rows, int cols)
+int	**arg_to_int(char *str)
 {
+	int	**arg_arr;
 	int	x;
 	int	j;
-	int	box;
 
-	x = -1;
-	while (++x < cols)
+	arg_arr = (int **)malloc(sizeof(int *) * (16 + 1));
+	if (arg_arr == NULL)
+		return (NULL);
+	x = 0;
+	j = -1;
+	while (str[x] != '\0')
 	{
-		box = 0;
-		j = -1;
-		while (++j < rows)
+		if (str[x] != ' ')
 		{
-			if (j == rows - 1 && table[j - 1][x] != 0)
-				table[j][x] = 10 - box;
-			box += table[j][x];	
+			arg_arr[++j] = malloc(sizeof(int));
+			if (arg_arr[j] == NULL)
+				return (free_fail(arg_arr, j));
+			*arg_arr[j] = str[x] - '0';
 		}
+		x++;
 	}
+	arg_arr[++j] = NULL;
+	return (arg_arr);
 }
 
+int	**table_creation(int rows, int cols)
+{
+	int	**table;
+	int	x;
+	int	j;
 
-void	verifier_rows(int **table, int rows, int cols)
+	table = (int **)malloc(sizeof(int *) * (rows + 1));
+	if (table == NULL)
+		return (NULL);
+	x = -1;
+	while (++x < rows)
+	{
+		table[x] = (int *)malloc(sizeof(int) * cols);
+		if (table[x] == NULL)
+			return (free_fail(table, x));
+		j = -1;
+		while (++j < cols)
+			table[x][j] = 0;
+	}
+	table[x] = NULL;
+	return (table);
+}
+
+int	checker(int **table)
 {
 	int	x;
 	int	j;
 	int	box;
 
 	j = -1;
-	while (++j < rows)
+	box = 0;
+	while (++j < 4)
 	{
-		box = 0;
 		x = -1;
-		while (++x < cols)
-		{
-			if (x == cols - 1 && table[j][x - 1] != 0)
-				table[j][x] = 10 - box;
-			box += table[j][x];	
-		}
+		while (++x < 4)
+			box += table[j][x];
 	}
-}
-
-void	rowlf_map(int **arg, int **table, int rows)
-{
-	int	x;
-	int	j;
-	int	i;
-
-	i = -1;
-	j = 0;
-	while (arg[++i] != NULL && i < rows)
+	x = -1;
+	while (++x < 4)
 	{
-		j = i;
-		if (*arg[i] == 1)
-			table[j][x] = 4;
-		if (*arg[i] == 4)
-		{
-			x = 0;
-			while (x < 4)
-			{
-				table[j][x] = x + 1;
-				x++;
-			}
-			x = 0;
-		}
-		if (*arg[i] == 2)
-			table[j][x + 1] = 4;
+		j = -1;
+		while (++j < 4)
+			box += table[j][x];
 	}
+	if (box != 80)
+		return (1);
+	return (0);
 }
 
-void	colup_map(int **arg, int **table, int cols)
+int	mapping(int **arg, int **table, int rows, int cols)
 {
-	int	x;
-	int	j;
-	int	i;
+	int	status;
 
-	i = -1;
-	j = 0;
-	while (arg[++i] != NULL && i < cols)
-	{
-		x = i;
-		if (*arg[i] == 1)
-			table[j][x] = 4;
-		if (*arg[i] == 4)
-		{
-			j = 0;
-			while (j < 4)
-			{
-				table[j][x] = j + 1;
-				j++;
-			}
-			j = 0;
-		}
-		if (*arg[i] == 2)
-			table[j + 1][x] = 4;
-		if (*arg[i] == 3 && table[j][x] == 2)
-			table[j + 1][x] = 3;
-	}
-}
-
-void	initial_mapping(int **arg, int **table, int rows, int cols)
-{
 	rowlf_map(arg + 8, table, rows);
 	colup_map(arg, table, cols);
 	verifier_rows(table, rows, cols);
 	verifier_cols(table, rows, cols);
+	verifier_remaining(arg + 4, table, rows, cols);
+	verifier_rows(table, rows, cols);
+	verifier_cols(table, rows, cols);
+	status = checker(table);
+	if (status == 1)
+		return (print_error());
+	return (0);
 }
 
 int	**rush01(int **arg)
@@ -125,6 +109,7 @@ int	**rush01(int **arg)
 	int	**table;
 	int	rows;
 	int	cols;
+	int	status;
 
 	(void)arg;
 	rows = 4;
@@ -132,25 +117,9 @@ int	**rush01(int **arg)
 	table = table_creation(cols, rows);
 	if (table == NULL)
 		return (NULL);
-	initial_mapping(arg, table, rows, cols);
+	status = mapping(arg, table, rows, cols);
+	if (status == 1)
+		return (NULL);
 	print_table(table, rows, cols);
 	return (table);
-}
-
-int	main(int argc, char *argv[])
-{
-	int		**arg;
-	int		**table;
-
-	if (argc != 2)
-		return (print_error(2));
-	arg = arg_to_int(argv[1]);
-	if (arg == NULL)
-		return (print_error(-1));
-	table = rush01(arg);
-	if (table == NULL)
-		return (print_error(-1));
-	free_array(arg);
-	free_array(table);
-	return (0);
 }

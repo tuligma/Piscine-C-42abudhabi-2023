@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:28:11 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/05 04:55:06 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/06 04:40:15 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,26 @@ void	ft_putchar_fd(char c, int fd)
 void	ft_putstr_fd(char *str, int fd)
 {
 	int	x;
-	
+
 	x = -1;
 	while (str[++x] != '\0')
 		ft_putchar_fd(str[x], fd);
 }
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s1 == *s2)
+	{
+		++s1;
+		++s2;
+	}
+	return (*s1 - *s2);
+}
+
 void	free_array(int	**arr)
 {
 	int	x;
-	
+
 	x = -1;
 	while (arr[++x] != NULL)
 		free(arr[x]);

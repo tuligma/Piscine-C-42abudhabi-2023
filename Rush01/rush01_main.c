@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush01_print.c                                     :+:      :+:    :+:   */
+/*   rush01_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 17:59:26 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/06 05:30:35 by npentini         ###   ########.fr       */
+/*   Created: 2024/05/04 16:25:21 by npentini          #+#    #+#             */
+/*   Updated: 2024/05/06 05:35:50 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush01.h"
 
-int	print_error(void)
+int	main(int argc, char *argv[])
 {
-	ft_putstr_fd("ERROR\n", STDERR_FILENO);
-	return (1);
-}
+	int		**arg;
+	int		**table;
 
-void	print_table(int **table, int rows, int cols)
-{
-	int	x;
-	int	j;
-
-	x = -1;
-	while (++x < rows)
-	{
-		j = -1;
-		while (++j < cols)
-		{
-			ft_putchar_fd(table[x][j] + '0', STDOUT_FILENO);
-			if (j < cols - 1)
-				ft_putchar_fd(' ', STDOUT_FILENO);
-		}
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	}
+	if (argc < 2)
+		return (print_error());
+	if (ft_strcmp(argv[1], "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2") != 0)
+		return (print_error());
+	arg = arg_to_int(argv[1]);
+	if (arg == NULL)
+		return (print_error());
+	table = rush01(arg);
+	if (table == NULL)
+		return (print_error());
+	free_array(arg);
+	free_array(table);
+	return (0);
 }
