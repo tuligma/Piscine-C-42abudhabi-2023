@@ -23,7 +23,8 @@
         "stdlib.h": "c",
         "unistd.h": "c",
         "ft_btree.h": "c",
-        "rush01.h": "c"
+        "rush01.h": "c",
+        "rush02.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
