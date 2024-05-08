@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:13:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/08 04:23:17 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/09 02:56:34 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,16 @@ int		table_size(char *str);
 int		key_size(char *str, int size);
 h_list	**table_creation(int size);
 void	free_table(h_list **table);
+char	*key_extraction(char *str, int size);
+char	**key_processing(char *str);
+int		value_size(char *str, int size);
+void	*free_error(char **arr, int i);
+int		line_count(char *str);
+int		word_counter(char *str, int size);
+int		value_size(char *str, int size);
+char	*value_extraction(char *str, int size);
+char	**value_processing(char *str);
+void	free_arr(char **arr);
+
 
 #endif

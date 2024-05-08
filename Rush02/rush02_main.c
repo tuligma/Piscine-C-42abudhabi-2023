@@ -6,20 +6,23 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/08 04:30:38 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/09 02:59:48 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
 
-int	fetching_parse(h_list**table)
+
 
 int	extract_create(void)
 {
 	h_list 	**table;
 	char	*dict;
+	char	**key;
+	char	**value;
 	int		result;
 	int		size;
+	int		x;
 
 	dict = NULL;
 	result = dict_parse(&dict);
@@ -29,8 +32,14 @@ int	extract_create(void)
 	table = table_creation(size);
 	if (table == NULL)
 		return (-1);
-	printf("%d\n", size);
+	key = key_processing(dict);
+	value = value_processing(dict);
+	x = -1;
+	while (value[++x] != NULL && key[x] != NULL)
+		printf("%s: %s\n", key[x], value[x]);
+	free_arr(value);
 	free(dict);
+	free_arr(key);
 	free_table(table);
 	return (0);
 }
