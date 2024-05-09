@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:13:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/09 02:56:34 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/10 02:24:18 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ typedef struct s_list
 
 typedef struct s_arr
 {
-	int		len;
-	t_list	**list;
+	t_list	*list;
 }			h_list;
 
 void	ft_putchar_fd(char c, int fd);
@@ -42,7 +41,7 @@ int		dict_parse(char **buff);
 int		table_size(char *str);
 int		key_size(char *str, int size);
 h_list	**table_creation(int size);
-void	free_table(h_list **table);
+int	free_table(h_list **table, char *str);
 char	*key_extraction(char *str, int size);
 char	**key_processing(char *str);
 int		value_size(char *str, int size);

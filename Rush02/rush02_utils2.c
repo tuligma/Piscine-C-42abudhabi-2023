@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 04:12:21 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/09 02:56:26 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/10 03:10:03 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,30 @@ int	table_size(char *str)
 	return (size);
 }
 
-void	free_table(h_list **table)
+int	free_table(h_list **table, char *str)
 {
+	t_list *current;
+	t_list *temp;
 	int	x;
 	
 	x = -1;
 	while (table[++x] != NULL)
+	{
+		current = table[x]->list;
+		while (current != NULL)
+		{
+			temp = current;
+			current = current->next;
+			free(temp->key);
+			free(temp->value);
+			free(temp);
+		}
 		free(table[x]);
-	free(table[x]);
+	}
 	free(table);
+	free(str);
 	table = NULL;
+	return (-1);
 }
 
 void free_arr(char **arr)
@@ -100,7 +114,6 @@ h_list	**table_creation(int size)
 			free(table);
 			return (NULL);
 		}
-		table[x]->len = x + 1;
 		table[x]->list = NULL;
 	}
 	table[x] = NULL;
