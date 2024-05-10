@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 00:59:45 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/09 02:55:49 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/10 04:50:18 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,37 +59,6 @@ void	*free_error(char **arr, int i)
 	free(arr);
 	arr = NULL;
 	return (NULL);
-}
-
-char	**key_processing(char *str)
-{
-	char **key;
-	int	x;
-	int	j;
-	int	i;
-
-	x = 0;
-	j = 0;
-	i = 0;
-	key = (char **)malloc(sizeof(char *) * (line_count(str) + 1));
-	if (key == NULL)
-		return (NULL);
-	while (str[x] != '\0')
-	{
-		if (str[x] != '\n')
-			x++;
-		else
-		{
-			key[i] = key_extraction(str + j, x - j);
-			if (key[i] == NULL)
-				return (free_error(key, i));
-			x++;
-			i++;
-			j = x;
-		}
-	}
-	key[i] = NULL;
-	return (key);
 }
 
 int	word_counter(char *str, int size)
@@ -173,33 +142,101 @@ char	*value_extraction(char *str, int size)
 	return (value);
 }
 
-char	**value_processing(char *str)
+t_list	*ft_create_elem(char *key, char *value)
 {
-	char **value;
+	t_list	*node;
+
+	node = (t_list *)malloc(sizeof(t_list));
+	if (node == NULL)
+		return (NULL);
+	node->key = key;
+	node->value = value;
+	node->next = NULL;
+	return (node);
+}
+
+int	insert_htable(h_list **table, char *key, char *value, int key_len)
+{
+	t_list	*node;
+	t_list	*current;
+	int	x;
+
+	if (key == NULL || value == NULL || key_len == 0)
+		return (-1);
+	node = ft_create_elem(key, value);
+	if (node == NULL)
+		return (-1);
+	if (key_len == 1)
+		key_len -= 1;
+	else if (key_len == 2 && (ft_atoi(key) >= 11 && ft_atoi(key) <= 19))
+		key_len -= 1;
+	else if (key_len > 4)
+	{
+		x = 0;
+		while (table[x]->list != NULL)
+			x++;
+		key_len = x;
+	}
+	if (table[key_len]->list == NULL)
+		table[key_len]->list = node;
+	else
+	{
+		current = table[key_len]->list;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = node;
+	}
+	return (0);
+}
+
+int	data_processing(h_list **table, char *str)
+{
+	char *key;
+	char *value;
 	int	x;
 	int	j;
-	int	i;
+	int	result;
 
 	x = 0;
 	j = 0;
-	i = 0;
-	value = (char **)malloc(sizeof(char *) * (line_count(str) + 1));
-	if (value == NULL)
-		return (NULL);
 	while (str[x] != '\0')
 	{
 		if (str[x] != '\n')
 			x++;
 		else
 		{
-			value[i] = value_extraction(str + j , x - j);
-			if (value == NULL)
-				return (free_error(value, i));
+			key = key_extraction(str + j, x - j);
+			value = value_extraction(str + j, x - j);
+			result = insert_htable(table, key, value, key_size(str + j, x - j));
+			if (result == -1)
+				return (-1);
 			x++;
-			i++;
 			j = x;
 		}
 	}
-	value[i] = NULL;
-	return (value);
+	return (0);
 }
+
+h_list	**extract_create(void)
+{
+	h_list 	**table;
+	char	*dict;
+	int		result;
+	int		size;
+
+	dict = NULL;
+	result = dict_parse(&dict);
+	if (result != 0)
+		return (NULL);
+	size = table_size(dict);
+	table = table_creation(size);
+	if (table == NULL)
+		return (NULL);
+	result = data_processing(table, dict);
+	if (result == -1)
+		return (free_table(table, dict));
+	print_table(table, size);
+	free_table(table, dict);
+	return (table);
+}
+

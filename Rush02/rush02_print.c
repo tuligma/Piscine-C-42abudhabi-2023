@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:32 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/08 04:15:40 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/10 04:48:26 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,24 @@ int	print_error(int error)
 	if (error == -1)
 		ft_putstr_fd("Dict Error\n", STDERR_FILENO);
 	return (1);
+}
+
+void	print_table(h_list **table, int size)
+{
+	t_list *current;
+	int	x;
+
+	x = -1;
+	while (++x < size)
+	{
+		printf("Bucket %d	-> (Key->Value) :", x + 1);
+		current = table[x]->list;
+		while (current != NULL)
+		{
+			printf("(%s->%s) ", current->key, current->value);
+			current = current->next;
+		}
+		printf("\n");
+	}
 }
 

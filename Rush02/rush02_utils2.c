@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 04:12:21 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/10 03:10:03 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/10 04:40:00 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	table_size(char *str)
 		{
 			new = key_size(str + j, x - j);
 			if (new != old)
-			{
+			{	
 				size++;
 				old = new;
 			}
@@ -58,7 +58,7 @@ int	table_size(char *str)
 	return (size);
 }
 
-int	free_table(h_list **table, char *str)
+void	*free_table(h_list **table, char *str)
 {
 	t_list *current;
 	t_list *temp;
@@ -79,9 +79,10 @@ int	free_table(h_list **table, char *str)
 		free(table[x]);
 	}
 	free(table);
-	free(str);
+	if (str != NULL)
+		free(str);
 	table = NULL;
-	return (-1);
+	return (NULL);
 }
 
 void free_arr(char **arr)
@@ -100,11 +101,11 @@ h_list	**table_creation(int size)
 	h_list **table;
 	int	x;
 
-	table = (h_list **)malloc(sizeof(h_list) * (size + 1));
+	table = (h_list **)malloc(sizeof(h_list) * (size + 2));
 	if (table == NULL)
 		return (NULL);
 	x = -1;
-	while (++x < size)
+	while (++x < size + 1)
 	{
 		table[x] = (h_list *)malloc(sizeof(h_list));
 		if (table[x] == NULL)

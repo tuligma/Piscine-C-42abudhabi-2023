@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:13:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/10 02:24:18 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/10 04:50:27 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		dict_parse(char **buff);
 int		table_size(char *str);
 int		key_size(char *str, int size);
 h_list	**table_creation(int size);
-int	free_table(h_list **table, char *str);
+void	*free_table(h_list **table, char *str);
 char	*key_extraction(char *str, int size);
 char	**key_processing(char *str);
 int		value_size(char *str, int size);
@@ -52,6 +52,11 @@ int		value_size(char *str, int size);
 char	*value_extraction(char *str, int size);
 char	**value_processing(char *str);
 void	free_arr(char **arr);
-
+int		data_processing(h_list **table, char *str);
+int	insert_htable(h_list **table, char *key, char *value, int key_len);
+t_list	*ft_create_elem(char *key, char *value);
+h_list	**extract_create(void);
+//not included
+void	print_table(h_list **table, int size);
 
 #endif
