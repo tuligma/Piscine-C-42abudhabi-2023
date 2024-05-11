@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:38:50 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/11 03:07:35 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/11 11:35:51 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isdigit(char *str)
 	x = -1;
 	while (str[++x] != '\0')
 	{
-		if (str[x] < '0' && str[x] > '9')
+		if (str[x] < '0' || str[x] > '9')
 			return (1);
 	}
 	return (0);
