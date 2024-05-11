@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush02.c                                           :+:      :+:    :+:   */
+/*   rush02_argv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:38:50 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/08 04:15:03 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:07:35 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,12 @@ int	ft_atoi(char *str)
 
 int	error_handler(int argc, char *argv[])
 {
-	int x;
 
-	if (argc < 2)
+	if (argc < 2 || argc > 3)
 		return(1);
-	x = 0;
-	while (++x < argc)
-	{
-		if (ft_isdigit(argv[x]) != 0 || ft_atoi(argv[x]) < 0)
-			return (2);
-	}
+	if (argc == 2 && (ft_isdigit(argv[1]) != 0 || ft_atoi(argv[1]) < 0))
+		return (2);
+	if (argc == 3 && (ft_isdigit(argv[2]) != 0 || ft_atoi(argv[2]) < 0))
+		return (2);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:13:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/10 04:50:27 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:08:10 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_list
 
 typedef struct s_arr
 {
+	int		len;
 	t_list	*list;
 }			h_list;
 
@@ -37,7 +38,7 @@ int		ft_atoi(char *str);
 int		print_error(int error);
 int		error_handler(int argc, char *argv[]);
 int		filesize(void);
-int		dict_parse(char **buff);
+int		dict_parse(char **buff, char *file);
 int		table_size(char *str);
 int		key_size(char *str, int size);
 h_list	**table_creation(int size);
@@ -55,7 +56,7 @@ void	free_arr(char **arr);
 int		data_processing(h_list **table, char *str);
 int	insert_htable(h_list **table, char *key, char *value, int key_len);
 t_list	*ft_create_elem(char *key, char *value);
-h_list	**extract_create(void);
+h_list	**extract_create(int argc, char *argv[]);
 //not included
 void	print_table(h_list **table, int size);
 

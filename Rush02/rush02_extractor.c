@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 00:59:45 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/10 04:50:18 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/11 05:08:22 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,28 +160,33 @@ int	insert_htable(h_list **table, char *key, char *value, int key_len)
 	t_list	*node;
 	t_list	*current;
 	int	x;
+	int	index;
 
 	if (key == NULL || value == NULL || key_len == 0)
 		return (-1);
 	node = ft_create_elem(key, value);
 	if (node == NULL)
 		return (-1);
-	if (key_len == 1)
-		key_len -= 1;
-	else if (key_len == 2 && (ft_atoi(key) >= 11 && ft_atoi(key) <= 19))
-		key_len -= 1;
-	else if (key_len > 4)
+	index = key_len;
+	if (index == 1)
+	{
+		index -= 1;
+	}
+	else if (index == 2 && (ft_atoi(key) >= 11 && ft_atoi(key) <= 19))
+		index -= 1;
+	else if (index > 4)
 	{
 		x = 0;
 		while (table[x]->list != NULL)
 			x++;
-		key_len = x;
+		index = x;
 	}
-	if (table[key_len]->list == NULL)
-		table[key_len]->list = node;
+	table[index]->len = key_len;
+	if (table[index]->list == NULL)
+		table[index]->list = node;
 	else
 	{
-		current = table[key_len]->list;
+		current = table[index]->list;
 		while (current->next != NULL)
 			current = current->next;
 		current->next = node;
@@ -217,15 +222,20 @@ int	data_processing(h_list **table, char *str)
 	return (0);
 }
 
-h_list	**extract_create(void)
+h_list	**extract_create(int argc, char *argv[])
 {
 	h_list 	**table;
 	char	*dict;
 	int		result;
 	int		size;
+	char	*file;
 
 	dict = NULL;
-	result = dict_parse(&dict);
+	if (argc == 3)
+		file = argv[1];
+	else
+		file = "./numbers.dict";
+	result = dict_parse(&dict, file);
 	if (result != 0)
 		return (NULL);
 	size = table_size(dict);
@@ -235,8 +245,9 @@ h_list	**extract_create(void)
 	result = data_processing(table, dict);
 	if (result == -1)
 		return (free_table(table, dict));
-	print_table(table, size);
-	free_table(table, dict);
+	// print_table(table, size);
+	// free_table(table, dict);
+	free(dict);
 	return (table);
 }
 

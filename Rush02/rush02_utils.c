@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:28:21 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/08 04:27:22 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/11 03:07:19 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	filesize(void)
 	return (count);
 }
 
-int	dict_parse(char **buff)
+int	dict_parse(char **buff, char *file)
 {
 	int		fd;
 	int		buff_size;
@@ -48,7 +48,7 @@ int	dict_parse(char **buff)
 	size = filesize();
 	if (size == -1)
 		return (2);
-	fd = open("./numbers.dict", O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (2);
 	*buff = (char *)malloc(sizeof(char) * size + 1);
