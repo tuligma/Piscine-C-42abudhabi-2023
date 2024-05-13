@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:32 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/11 03:14:39 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 02:25:36 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,33 @@ int	print_error(int error)
 	return (1);
 }
 
-void	print_table(h_list **table, int size)
+int	error_handler(int argc, char *argv[])
 {
-	t_list *current;
-	int	x;
-
-	x = -1;
-	while (++x < size)
-	{
-		printf("Bucket %d : len %d-> (Key->Value) :", x, table[x]->len);
-		current = table[x]->list;
-		while (current != NULL)
-		{
-			printf("(%s->%s) ", current->key, current->value);
-			current = current->next;
-		}
-		printf("\n");
-	}
+	if (argc < 2 || argc > 3)
+		return (1);
+	if (argc == 2 && ft_isdigit(argv[1]) != 0)
+		return (2);
+	if (argc == 3 && ft_isdigit(argv[2]) != 0)
+		return (2);
+	return (0);
 }
+
+// void	print_table(h_list **table, int size)
+// {
+// 	t_list *current;
+// 	int	x;
+
+// 	x = -1;
+// 	while (++x < size)
+// 	{
+// 		printf("Bucket %d : len %d-> (Key->Value) :", x, table[x]->len);
+// 		current = table[x]->list;
+// 		while (current != NULL)
+// 		{
+// 			printf("(%s->%s) ", current->key, current->value);
+// 			current = current->next;
+// 		}
+// 		printf("\n");
+// 	}
+// }
 

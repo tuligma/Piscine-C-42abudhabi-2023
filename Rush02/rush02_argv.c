@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:38:50 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/13 23:58:57 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 02:26:09 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,17 @@ int	ft_atoi(char *str)
 	return (result);
 }
 
-int	error_handler(int argc, char *argv[])
+char	*ft_strdup(char *src, int size)
 {
-	if (argc < 2 || argc > 3)
-		return (1);
-	if (argc == 2 && ft_isdigit(argv[1]) != 0)
-		return (2);
-	if (argc == 3 && ft_isdigit(argv[2]) != 0)
-		return (2);
-	return (0);
+	char	*dest;
+	int		i;
+	
+	dest = (char *)malloc(sizeof(char) * (size + 1));
+	if (!dest)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		dest[i] = src[i];
+	dest[i] = '\0';
+	return (dest);
 }

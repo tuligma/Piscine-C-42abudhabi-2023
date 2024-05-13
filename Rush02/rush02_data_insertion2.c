@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush02.c                                           :+:      :+:    :+:   */
+/*   rush02_data_insertion2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 00:29:43 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 00:35:44 by npentini         ###   ########.fr       */
+/*   Created: 2024/05/14 02:00:43 by npentini          #+#    #+#             */
+/*   Updated: 2024/05/14 02:01:31 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,59 +60,4 @@ int	insert_htable(h_list **table, char *key, char *value, int key_len)
 		current->next = node;
 	}
 	return (0);
-}
-
-int	data_processing(h_list **table, char *str)
-{
-	char	*key;
-	char	*value;
-	int		x;
-	int		j;
-	int		result;
-
-	x = 0;
-	j = 0;
-	while (str[x] != '\0')
-	{
-		if (str[x] != '\n')
-			x++;
-		else
-		{
-			key = key_extraction(str + j, x - j);
-			value = value_extraction(str + j, x - j);
-			result = insert_htable(table, key, value, key_size(str + j, x - j));
-			if (result == -1)
-				return (-1);
-			x++;
-			j = x;
-		}
-	}
-	return (0);
-}
-
-h_list	**extract_create(int argc, char *argv[])
-{
-	h_list	**table;
-	char	*dict;
-	int		result;
-	int		size;
-	char	*file;
-
-	dict = NULL;
-	if (argc == 3)
-		file = argv[1];
-	else
-		file = "./numbers.dict";
-	result = dict_parse(&dict, file);
-	if (result != 0)
-		return (NULL);
-	size = table_size(dict);
-	table = table_creation(size);
-	if (table == NULL)
-		return (NULL);
-	result = data_processing(table, dict);
-	if (result == -1)
-		return (free_table(table, dict));
-	free(dict);
-	return (table);
 }
