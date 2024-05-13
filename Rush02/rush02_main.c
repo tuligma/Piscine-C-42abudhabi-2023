@@ -6,31 +6,11 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/13 19:39:25 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 00:23:36 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	while (*s1 && *s1 == *s2)
-	{
-		++s1;
-		++s2;
-	}
-	return (*s1 - *s2);
-}
-
-int	ft_strlen(char *str)
-{
-	int	x;
-
-	x = 0;
-	while (str[x] != '\0')
-		x++;
-	return (x);
-}
 
 char	*ft_strdup(char *src, int size)
 {
@@ -47,7 +27,7 @@ char	*ft_strdup(char *src, int size)
 	return (dest);
 }
 
-int	ones(char *str, h_list **table, int len)
+int	ones(char *str, h_list **table)
 {
 	t_list *current;
 	int		j;
@@ -59,7 +39,6 @@ int	ones(char *str, h_list **table, int len)
 	if (current == NULL)
 		return (2);
 	ft_putstr_fd(current->value, STDOUT_FILENO);
-	(void)len;
 	return (0);
 }
 
@@ -82,12 +61,10 @@ int	hundreds_up(char *str, h_list **table, int len)
 	if (current == NULL)
 		return (2);
 	ft_putstr_fd(current->value, STDOUT_FILENO);
-	if (len > 2 && ft_atoi(str) % ft_atoi(current->key) != 0)
-		ft_putchar_fd(' ', STDOUT_FILENO);
 	return (0);
 }
 
-int	tens(char *str, h_list **table, int len)
+int	tens(char *str, h_list **table)
 {
 	t_list *current;
 	int		j;
@@ -111,7 +88,7 @@ int	tens(char *str, h_list **table, int len)
 	if (num / 10 > 1 && ft_atoi(str) % 10 != 0)
 	{	
 		ft_putchar_fd(' ', STDOUT_FILENO);
-		num = ones(str + 1, table, len);
+		num = ones(str + 1, table);
 		if (num != 0)
 			return (2);
 	}	
@@ -133,48 +110,46 @@ int	order_magnitude(h_list **table, int len)
 	if (table[x]->len > len)
 		x -= 1;
 	ft_putstr_fd(table[x]->list->value, STDOUT_FILENO);
-	ft_putchar_fd(' ', STDOUT_FILENO);
 	return (0);
 }
 
-int search_per_order(char *str, h_list **table, int len)
+int search_per_order(char *str, h_list **table, int len, int full_len)
 {
 	int	result;
 	int	x;
 
-	(void)table;
 	x = 0;
 	while (len > 0 && str[x] != '\0')
 	{
-		if (str[x] == '0')
-		{
-			x++;
-			len--;
-			continue ;
-		}
 		if (len == 1)
 		{
-			result = ones(str + x, table, len);
+			result = ones(str + x, table);
 			if (result == 2)
 				return (result);
+			if (full_len - len > 0 )
+				ft_putchar_fd(' ', STDOUT_FILENO);
 			len--;
 		}
 		else if (len == 2)
 		{
-			result = tens(str + x, table, len);
+			result = tens(str + x, table);
 			if (result == 2)
 				return (result);
+			if (len < full_len - 1)
+				ft_putchar_fd(' ', STDOUT_FILENO);
 			len -= 2;
 		}
 		else if (len == 3)
 		{
-			result = ones(str, table, len);
+			result = ones(str, table);
 			if (result != 0)
 				return (2);
 			ft_putchar_fd(' ', STDOUT_FILENO);
 			result = hundreds_up(str + x, table, len);
 			if (result == 2)
 				return (result);
+			if (full_len > 0)
+				ft_putchar_fd(' ', STDOUT_FILENO);
 			len--;
 		}
 		x++;
@@ -192,6 +167,11 @@ int	search_arg1(char *str, h_list **table)
 
 	len = ft_strlen(str);
 	x = 0;
+	while (str[x] != '\0' && str[x] == '0' && len > 1)
+	{
+		x++;
+		len--;
+	}
 	while (len > 0)
 	{
 		if (len % 3 == 0)
@@ -201,17 +181,18 @@ int	search_arg1(char *str, h_list **table)
 		substr = ft_strdup(str + x, offset_len);
 		if (substr == NULL)
 			return (2);
-		result = search_per_order(substr, table, offset_len);
+		result = search_per_order(substr, table, offset_len, len);
 		if (result == 2)
 			return (result);
 		if (len > 3)
 		{
-			ft_putchar_fd(' ', STDOUT_FILENO);
 			result = order_magnitude(table, len);
 			if (result == 2)
 				return (result);
 		}
 		x += offset_len;
+		if (ft_atoi(str + x) != 0)
+			ft_putchar_fd(' ', STDOUT_FILENO);
 		len -= offset_len;
 		free(substr);
 	}

@@ -6,16 +6,16 @@
 #    By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 19:44:18 by npentini          #+#    #+#              #
-#    Updated: 2024/05/09 01:18:50 by npentini         ###   ########.fr        #
+#    Updated: 2024/05/14 00:34:13 by npentini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rush-02
-SRCS = rush02_main.c rush02_utils.c rush02_utils2.c rush02_print.c rush02_argv.c rush02_extractor.c
+SRCS = rush02_main.c rush02_utils.c rush02_utils2.c rush02_print.c rush02_argv.c rush02_extractor.c rush02.c rush02_table.c
 INCS = .
 COMP = gcc
 CFLAGS = -Wall -Wextra -Werror
-OBJS = rush02_main.o rush02_utils.o rush02_utils2.o rush02_print.o rush02_argv.o rush02_extractor.o
+OBJS = rush02_main.o rush02_utils.o rush02_utils2.o rush02_print.o rush02_argv.o rush02_extractor.o rush02.o rush02_table.o
 DELETE = rm -f
 
 all: $(NAME)

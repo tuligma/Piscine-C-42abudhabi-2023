@@ -6,26 +6,11 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 04:12:21 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/10 04:40:00 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 00:33:07 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
-
-int	key_size(char *str, int size)
-{
-	int		count;
-	int		x;
-
-	x = -1;
-	count = 0;
-	while ((str[++x] != '\0' && str[x] != ':') && x < size)
-	{
-		if (str[x] >= '0' && str[x] <= '9')
-			count++;
-	}
-	return (count);
-}
 
 int	table_size(char *str)
 {
@@ -47,7 +32,7 @@ int	table_size(char *str)
 		{
 			new = key_size(str + j, x - j);
 			if (new != old)
-			{	
+			{
 				size++;
 				old = new;
 			}
@@ -60,10 +45,10 @@ int	table_size(char *str)
 
 void	*free_table(h_list **table, char *str)
 {
-	t_list *current;
-	t_list *temp;
-	int	x;
-	
+	t_list	*current;
+	t_list	*temp;
+	int		x;
+
 	x = -1;
 	while (table[++x] != NULL)
 	{
@@ -85,21 +70,19 @@ void	*free_table(h_list **table, char *str)
 	return (NULL);
 }
 
-void free_arr(char **arr)
+void	*free_error(char **arr, int i)
 {
-	int	x;
-
-	x = -1;
-	while (arr[++x] != NULL)
-		free(arr[x]);
+	while (--i > 0)
+		free(arr[i]);
 	free(arr);
 	arr = NULL;
+	return (NULL);
 }
 
 h_list	**table_creation(int size)
 {
-	h_list **table;
-	int	x;
+	h_list	**table;
+	int		x;
 
 	table = (h_list **)malloc(sizeof(h_list) * (size + 2));
 	if (table == NULL)
@@ -109,12 +92,7 @@ h_list	**table_creation(int size)
 	{
 		table[x] = (h_list *)malloc(sizeof(h_list));
 		if (table[x] == NULL)
-		{
-			while (--x > 0)
-				free(table[x]);
-			free(table);
-			return (NULL);
-		}
+			return (free_table(table, NULL));
 		table[x]->list = NULL;
 	}
 	table[x] = NULL;
