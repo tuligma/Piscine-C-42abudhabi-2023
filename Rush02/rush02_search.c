@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 02:22:00 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:25:52 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 04:06:25 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	order_magnitude(h_list **table, int len)
 	while (table[++x] != NULL && table[x]->len != len)
 	{
 		if (table[x]->len > len)
-			break;
+			break ;
 	}
 	if (table[x] == NULL)
 		return (2);
@@ -30,12 +30,17 @@ int	order_magnitude(h_list **table, int len)
 	return (0);
 }
 
-int search_per_order(char *str, h_list **table, int len, int full_len)
+int	search_per_order(char *str, h_list **table, int len, int full_len)
 {
 	int	result;
 	int	x;
 
 	x = 0;
+	while (str[x] != '\0' && str[x] == '0')
+	{
+		x++;
+		len--;
+	}
 	while (len > 0 && str[x] != '\0')
 	{
 		if (len == 1)
@@ -43,7 +48,7 @@ int search_per_order(char *str, h_list **table, int len, int full_len)
 			result = ones(str + x, table);
 			if (result == 2)
 				return (result);
-			if (full_len - len > 0 )
+			if (full_len - len > 0)
 				ft_putchar_fd(' ', STDOUT_FILENO);
 			len--;
 		}
@@ -65,9 +70,11 @@ int search_per_order(char *str, h_list **table, int len, int full_len)
 			result = hundreds_up(str + x, table, len);
 			if (result == 2)
 				return (result);
-			if (full_len > 0)
-				ft_putchar_fd(' ', STDOUT_FILENO);
 			len--;
+			if (ft_atoi(str + (x + 1)) == 0)
+				break ;
+			else
+				ft_putchar_fd(' ', STDOUT_FILENO);
 		}
 		x++;
 	}
@@ -76,11 +83,11 @@ int search_per_order(char *str, h_list **table, int len, int full_len)
 
 int	search_arg1(char *str, h_list **table)
 {
-	char *substr;
-	int	len;
-	int	offset_len;
-	int	result;
-	int	x;
+	char	*substr;
+	int		len;
+	int		offset_len;
+	int		result;
+	int		x;
 
 	len = ft_strlen(str);
 	x = 0;

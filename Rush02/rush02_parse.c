@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 01:50:34 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:11:47 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 03:06:38 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,16 @@ int	table_size(char *str)
 	size = 0;
 	while (str[x] != '\0')
 	{
-		if (str[x] != '\n')
+		while (str[x] != '\0' && str[x] != '\n')
 			x++;
-		else
+		new = key_size(str + j, x - j);
+		if (new != old)
 		{
-			new = key_size(str + j, x - j);
-			if (new != old)
-			{
-				size++;
-				old = new;
-			}
-			x++;
-			j = x;
+			size++;
+			old = new;
 		}
+		x++;
+		j = x;
 	}
 	return (size);
 }

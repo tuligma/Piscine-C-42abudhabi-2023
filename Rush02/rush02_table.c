@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 00:07:23 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:02:48 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 03:09:44 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,32 @@ h_list	**table_creation(int size)
 	}
 	table[x] = NULL;
 	return (table);
+}
+
+int	data_processing(h_list **table, char *str)
+{
+	char	*key;
+	char	*value;
+	int		x;
+	int		j;
+	int		result;
+
+	x = 0;
+	j = 0;
+	while (str[x] != '\0')
+	{
+		if (str[x] != '\n')
+			x++;
+		else
+		{
+			key = key_extraction(str + j, x - j);
+			value = value_extraction(str + j, x - j);
+			result = insert_htable(table, key, value, key_size(str + j, x - j));
+			if (result == -1)
+				return (-1);
+			x++;
+			j = x;
+		}
+	}
+	return (0);
 }

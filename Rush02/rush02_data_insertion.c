@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 01:55:17 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:11:30 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 03:22:59 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,17 @@ int	value_size(char *str, int size)
 	return (count);
 }
 
+void	inner_extraction(char *str, char *value, int *x, int *j)
+{
+	while (str[*x] != '\0' && str[*x] != '\n'
+		&& !(str[*x] >= 9 && str[*x] <= 13) && str[*x] != ' ')
+	{
+		value[*j] = str[*x];
+		(*j)++;
+		(*x)++;
+	}
+}
+
 char	*value_extraction(char *str, int size)
 {
 	char	*value;
@@ -105,44 +116,10 @@ char	*value_extraction(char *str, int size)
 	{
 		if (str[x] >= 9 && str[x] <= 13 && str[x] == ' ' && str[x] == ':')
 			continue ;
-		while (str[x] != '\0' && str[x] != '\n'
-			&& !(str[x] >= 9 && str[x] <= 13) && str[x] != ' ')
-		{
-			value[j] = str[x];
-			j++;
-			x++;
-		}
+		inner_extraction(str, value, &x, &j);
 		if (word_counter(str, size) >= 2 && j > 0)
 			value[j++] = ' ';
 	}
 	value[count] = '\0';
 	return (value);
-}
-
-int	data_processing(h_list **table, char *str)
-{
-	char	*key;
-	char	*value;
-	int		x;
-	int		j;
-	int		result;
-
-	x = 0;
-	j = 0;
-	while (str[x] != '\0')
-	{
-		if (str[x] != '\n')
-			x++;
-		else
-		{
-			key = key_extraction(str + j, x - j);
-			value = value_extraction(str + j, x - j);
-			result = insert_htable(table, key, value, key_size(str + j, x - j));
-			if (result == -1)
-				return (-1);
-			x++;
-			j = x;
-		}
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:15:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:46:35 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 03:35:03 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ h_list	**extract_create(int argc, char *argv[])
 	result = data_processing(table, dict);
 	if (result == -1)
 		return (free_table(table, dict));
+	print_table(table, size);
 	free(dict);
 	return (table);
 }
 
 int	main(int argc, char *argv[])
 {
+	h_list	**table;
 	int		status;
-	h_list **table;
 
 	status = error_handler(argc, argv);
 	if (status != 0)

@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:38:50 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:26:09 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 03:01:53 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_strdup(char *src, int size)
 {
 	char	*dest;
 	int		i;
-	
+
 	dest = (char *)malloc(sizeof(char) * (size + 1));
 	if (!dest)
 		return (NULL);

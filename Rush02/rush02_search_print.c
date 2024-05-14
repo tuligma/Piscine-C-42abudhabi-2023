@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 02:23:56 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:24:38 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/14 03:46:27 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ones(char *str, h_list **table)
 {
-	t_list *current;
+	t_list	*current;
 	int		j;
 
 	j = 0;
@@ -29,9 +29,9 @@ int	ones(char *str, h_list **table)
 
 int	hundreds_up(char *str, h_list **table, int len)
 {
-	t_list *current;
-	int j;
-	int num;
+	t_list	*current;
+	int		j;
+	int		num;
 
 	j = 0;
 	while (table[j] != NULL && table[j]->len != len)
@@ -49,17 +49,32 @@ int	hundreds_up(char *str, h_list **table, int len)
 	return (0);
 }
 
+int	tens_ones(char *str, h_list **table)
+{
+	int	num;
+
+	num = ft_atoi(str);
+	if (num / 10 > 1 && ft_atoi(str) % 10 != 0)
+	{
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		num = ones(str + 1, table);
+		if (num != 0)
+			return (2);
+	}
+	return (0);
+}
+
 int	tens(char *str, h_list **table)
 {
-	t_list *current;
+	t_list	*current;
 	int		j;
 	int		num;
-	
+
 	j = 0;
 	num = ft_atoi(str);
 	if (num >= 11 && num <= 19)
 		j = 1;
-	else 
+	else
 		j = 2;
 	if (num / 10 > 1 && num % 10 != 0)
 		num -= (num % 10);
@@ -69,13 +84,8 @@ int	tens(char *str, h_list **table)
 	if (current == NULL)
 		return (2);
 	ft_putstr_fd(current->value, STDOUT_FILENO);
-	num = ft_atoi(str);
-	if (num / 10 > 1 && ft_atoi(str) % 10 != 0)
-	{	
-		ft_putchar_fd(' ', STDOUT_FILENO);
-		num = ones(str + 1, table);
-		if (num != 0)
-			return (2);
-	}	
+	num = tens_ones(str, table);
+	if (num != 0)
+		return (2);
 	return (0);
 }
