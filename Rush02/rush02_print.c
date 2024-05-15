@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:32 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 03:35:45 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/15 03:55:42 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_table(h_list **table, int size)
 	int	x;
 
 	x = -1;
-	while (++x < size)
+	while (++x <= size)
 	{
 		printf("Bucket %d : len %d-> (Key->Value) :", x, table[x]->len);
 		current = table[x]->list;
