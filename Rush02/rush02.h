@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:13:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 02:44:49 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 01:56:25 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,40 +29,8 @@ typedef struct s_arr
 {
 	int		len;
 	t_list	*list;
-}			h_list;
+}			t_table;
 
-// void	ft_putchar_fd(char c, int fd);
-// void	ft_putstr_fd(char *str, int fd);
-// int		ft_isdigit(char *str);
-// int		ft_atoi(char *str);
-// int		ft_strcmp(char *s1, char *s2);
-// int		ft_strlen(char *str);
-// int		print_error(int error);
-// int		error_handler(int argc, char *argv[]);
-// int		filesize(char *file);
-// int		dict_parse(char **buff, char *file);
-// int		table_size(char *str);
-// int		key_size(char *str, int size);
-// h_list	**table_creation(int size);
-// void	*free_table(h_list **table, char *str);
-// char	*key_extraction(char *str, int size);
-// char	**key_processing(char *str);
-// int		value_size(char *str, int size);
-// void	*free_error(char **arr, int i);
-// int		line_count(char *str);
-// int		word_counter(char *str, int size);
-// int		value_size(char *str, int size);
-// char	*value_extraction(char *str, int size);
-// char	**value_processing(char *str);
-// void	free_arr(char **arr);
-// int		data_processing(h_list **table, char *str);
-// int	insert_htable(h_list **table, char *key, char *value, int key_len);
-// t_list	*ft_create_elem(char *key, char *value);
-// h_list	**extract_create(int argc, char *argv[]);
-//not included
-void	print_table(h_list **table, int size);
-
-//final
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strlen(char *str);
 int		ft_isdigit(char *str);
@@ -70,28 +38,36 @@ int		ft_atoi(char *str);
 char	*ft_strdup(char *src, int size);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *str, int fd);
-int		print_error(int error);
+int		print_error_free(int error, t_table **table);
 int		error_handler(int argc, char *argv[]);
-h_list	**extract_create(int argc, char *argv[]);
 int		dict_parse(char **buff, char *file);
 int		filesize(char *file);
 int		table_size(char *str);
 int		key_size(char *str, int size);
-h_list	**table_creation(int size);
-void	*free_table(h_list **table, char *str);
-int		data_processing(h_list **table, char *str);
+t_table	**table_creation(int size);
+void	*free_table(t_table **table, char *str);
+int		data_processing(t_table **table, char *str);
 char	*key_extraction(char *str, int size);
 char	*value_extraction(char *str, int size);
 int		value_size(char *str, int size);
 int		word_counter(char *str, int size);
-int		insert_htable(h_list **table, char *key, char *value, int key_len);
+int		insert_htable(t_table **table, char *key, char *value, int key_len);
 t_list	*ft_create_elem(char *key, char *value);
-int		search_arg1(char *str, h_list **table);
-int		search_per_order(char *str, h_list **table, int len, int full_len);
-int		order_magnitude(h_list **table, int len);
-int		ones(char *str, h_list **table);
-int		hundreds_up(char *str, h_list **table, int len);
-int		tens(char *str, h_list **table);
+int		search_per_order(char *str, t_table **table, int len, int full_len);
+int		order_magnitude(t_table **table, int len);
+int		handle_large_number(char *str, t_table **table, int len, int *x);
+int		handle_thousands_up(char *str, t_table **table, int len, int *x);
+int		ones(char *str, t_table **table);
+int		hundreds_up(char *str, t_table **table, int len);
+int		tens(char *str, t_table **table);
+int		handle_ones(char *str, t_table **table, int *len, int full_len);
+int		handle_tens(char *str, t_table **table, int *len, int full_len);
+int		handle_hundreds(char *str, t_table **table, int *len, int full_len);
+t_table	**extract_create(int argc, char *argv[]);
+int		search_arg1(char *str, t_table **table);
+int		zero_arg(char *str, t_table **table);
+int		zeros(char *str);
 
+void	print_table(t_table **table, int size);
 
 #endif

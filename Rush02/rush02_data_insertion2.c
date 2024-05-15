@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 02:00:43 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 03:40:27 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 00:11:03 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_list	*ft_create_elem(char *key, char *value)
 	return (node);
 }
 
-int	hash_index(h_list **table, char *key, int index)
+int	hash_index(t_table **table, char *key, int index)
 {
 	int	x;
 
@@ -43,7 +43,7 @@ int	hash_index(h_list **table, char *key, int index)
 	return (index);
 }
 
-int	insert_htable(h_list **table, char *key, char *value, int key_len)
+int	insert_htable(t_table **table, char *key, char *value, int key_len)
 {
 	t_list	*node;
 	t_list	*current;

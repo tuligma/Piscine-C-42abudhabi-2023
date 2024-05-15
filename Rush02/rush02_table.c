@@ -6,13 +6,13 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 00:07:23 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/14 03:09:44 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 00:10:50 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
 
-void	*free_table(h_list **table, char *str)
+void	*free_table(t_table **table, char *str)
 {
 	t_list	*current;
 	t_list	*temp;
@@ -39,18 +39,18 @@ void	*free_table(h_list **table, char *str)
 	return (NULL);
 }
 
-h_list	**table_creation(int size)
+t_table	**table_creation(int size)
 {
-	h_list	**table;
+	t_table	**table;
 	int		x;
 
-	table = (h_list **)malloc(sizeof(h_list) * (size + 2));
+	table = (t_table **)malloc(sizeof(t_table) * (size + 2));
 	if (table == NULL)
 		return (NULL);
 	x = -1;
 	while (++x < size + 1)
 	{
-		table[x] = (h_list *)malloc(sizeof(h_list));
+		table[x] = (t_table *)malloc(sizeof(t_table));
 		if (table[x] == NULL)
 			return (free_table(table, NULL));
 		table[x]->list = NULL;
@@ -59,7 +59,7 @@ h_list	**table_creation(int size)
 	return (table);
 }
 
-int	data_processing(h_list **table, char *str)
+int	data_processing(t_table **table, char *str)
 {
 	char	*key;
 	char	*value;

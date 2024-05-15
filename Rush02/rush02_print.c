@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:35:32 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/15 03:55:42 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 00:11:53 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,15 @@ void	ft_putstr_fd(char *str, int fd)
 		ft_putchar_fd(str[x], fd);
 }
 
-int	print_error(int error)
+int	print_error_free(int error, t_table **table)
 {
-	if (error == 2)
+	if (table != NULL)
+		free_table(table, NULL);
+	if (error == 1)
+		return (0);
+	else if (error == 2)
 		ft_putstr_fd("Error\n", STDERR_FILENO);
-	if (error == -1)
+	else if (error == -1)
 		ft_putstr_fd("Dict Error\n", STDERR_FILENO);
 	return (1);
 }
@@ -38,7 +42,7 @@ int	print_error(int error)
 int	error_handler(int argc, char *argv[])
 {
 	if (argc < 2 || argc > 3)
-		return (1);
+		return (2);
 	if (argc == 2 && ft_isdigit(argv[1]) != 0)
 		return (2);
 	if (argc == 3 && ft_isdigit(argv[2]) != 0)
@@ -46,10 +50,10 @@ int	error_handler(int argc, char *argv[])
 	return (0);
 }
 
-void	print_table(h_list **table, int size)
+void	print_table(t_table **table, int size)
 {
-	t_list *current;
-	int	x;
+	t_list	*current;
+	int		x;
 
 	x = -1;
 	while (++x <= size)

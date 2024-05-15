@@ -6,13 +6,13 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 02:23:56 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/15 01:20:14 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/15 23:57:46 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rush02.h"
 
-int	ones(char *str, h_list **table)
+int	ones(char *str, t_table **table)
 {
 	t_list	*current;
 	int		j;
@@ -27,7 +27,7 @@ int	ones(char *str, h_list **table)
 	return (0);
 }
 
-int	hundreds_up(char *str, h_list **table, int len)
+int	hundreds_up(char *str, t_table **table, int len)
 {
 	t_list	*current;
 	int		j;
@@ -49,7 +49,7 @@ int	hundreds_up(char *str, h_list **table, int len)
 	return (0);
 }
 
-int	tens_ones(char *str, h_list **table)
+int	tens_ones(char *str, t_table **table)
 {
 	int	num;
 
@@ -64,7 +64,7 @@ int	tens_ones(char *str, h_list **table)
 	return (0);
 }
 
-int	tens(char *str, h_list **table)
+int	tens(char *str, t_table **table)
 {
 	t_list	*current;
 	int		j;
