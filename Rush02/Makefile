@@ -6,16 +6,16 @@
 #    By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 19:44:18 by npentini          #+#    #+#              #
-#    Updated: 2024/05/16 01:32:47 by npentini         ###   ########.fr        #
+#    Updated: 2024/05/16 23:20:49 by npentini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = rush-02
-SRCS = rush02_argv.c rush02_print.c rush02_main.c rush02.c rush02_parse.c rush02_table.c rush02_data_insertion.c rush02_data_insertion2.c rush02_search.c rush02_search_print.c rush02_print_oth.c
+SRCS = rush02_argv.c rush02_print.c rush02_main.c rush02.c rush02_parse.c rush02_table.c rush02_data_insertion.c rush02_data_insertion2.c rush02_search.c rush02_search_print.c rush02_print_oth.c rush02_cleanser.c
 INCS = .
 COMP = gcc
 CFLAGS = -Wall -Wextra -Werror
-OBJS = rush02_argv.o rush02_print.o rush02_main.o rush02.o rush02_parse.o rush02_table.o rush02_data_insertion.o rush02_data_insertion2.o rush02_search.o rush02_search_print.o rush02_print_oth.o
+OBJS = rush02_argv.o rush02_print.o rush02_main.o rush02.o rush02_parse.o rush02_table.o rush02_data_insertion.o rush02_data_insertion2.o rush02_search.o rush02_search_print.o rush02_print_oth.o rush02_cleanser.o
 DELETE = rm -f
 
 all: $(NAME)

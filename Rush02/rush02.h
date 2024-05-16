@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 19:13:27 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/16 01:56:25 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 23:32:27 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ t_table	**extract_create(int argc, char *argv[]);
 int		search_arg1(char *str, t_table **table);
 int		zero_arg(char *str, t_table **table);
 int		zeros(char *str);
-
+char	*cleanse_dict(char *str);
+int		cleanse_size(char *str);
 void	print_table(t_table **table, int size);
 
 #endif

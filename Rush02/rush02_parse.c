@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 01:50:34 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/16 02:44:02 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 23:19:59 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int	dict_parse(char **buff, char *file)
 		return (2);
 	(*buff)[buff_size] = '\0';
 	close(fd);
+	*buff = cleanse_dict(*buff);
+	if (*buff == NULL)
+		return (2);
 	return (0);
 }
 

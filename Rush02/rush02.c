@@ -6,7 +6,7 @@
 /*   By: npentini <npentini@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 01:27:20 by npentini          #+#    #+#             */
-/*   Updated: 2024/05/16 02:46:18 by npentini         ###   ########.fr       */
+/*   Updated: 2024/05/16 23:24:46 by npentini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ t_table	**extract_create(int argc, char *argv[])
 	if (result != 0)
 		return (NULL);
 	size = table_size(dict);
-	table = table_creation(size); 
+	table = table_creation(size);
 	if (table == NULL)
 		return (NULL);
 	result = data_processing(table, dict);
 	if (result == -1)
 		return (free_table(table, dict));
-	// print_table(table, size);
 	free(dict);
 	return (table);
 }
